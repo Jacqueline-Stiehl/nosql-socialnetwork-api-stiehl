@@ -1,5 +1,5 @@
 //based off of postController.js in activity #21
-const { Thought } = require("../models");
+const { Thought, User, Reaction } = require("../models");
 
 module.exports = {
   async getThoughts(req, res) {
@@ -25,16 +25,22 @@ module.exports = {
 
       res.json({
         thought,
-        reaction: await reaction(req.params.thoughtId),
+        reaction: await Reaction(req.params.thoughtId),
       });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
+  //used videoControllers.js in activity #25 to help with one below:
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
+      const user = await User.findOneAndUpdate(
+        { _id: req.body.userId },
+        { $addToSet: { thoughts: thought._id } },
+        { new: true }
+      );
       res.json(thought);
     } catch (err) {
       res.status(500).json(err);
@@ -60,6 +66,7 @@ module.exports = {
   },
 
   //add a reaction to a thought
+  //see recording on 8-21-23 at 2:27 for help with this
   async createReaction(req, res) {
     console.log("You are adding a reaction");
     console.log(req.body);

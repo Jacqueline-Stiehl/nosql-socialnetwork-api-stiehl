@@ -1,4 +1,6 @@
 //Schema only
+//should this go into Thought model?
+//see recording on 8-21-23 at 2:28
 const { Schema, model } = require("mongoose");
 
 const reactionSchema = new Schema({
