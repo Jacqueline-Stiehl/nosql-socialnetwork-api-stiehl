@@ -1,7 +1,8 @@
 //based off of mini project Assignment.js
 const { Schema, model } = require("mongoose");
 const reactionSchema = require("./Reaction");
-const dateFormat = require("/..utils/dateFormat");
+//const dateFormat = require("/..utils/dateFormat.js");
+const dateFormat = require("../utils/dateFormat");
 
 const thoughtSchema = new Schema(
   {

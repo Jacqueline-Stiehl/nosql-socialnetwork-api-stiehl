@@ -1,7 +1,10 @@
 const connection = require("../config/connection");
-const users = require("../seeds/users.json");
-const thoughts = require("../seeds/thoughts.json");
-const reactions = require("../seeds/reactions.json");
+//const users = require("../seeds/users.json");
+const users = require("./users.json");
+//const thoughts = require("../seeds/thoughts.json");
+const thoughts = require("./thoughts.json");
+//const reactions = require("../seeds/reactions.json");
+const reactions = require("./reactions.json");
 
 const { User, Thought, Reaction } = require("../models");
 

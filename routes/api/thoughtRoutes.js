@@ -30,7 +30,7 @@ router
 
 /////////////////////////////////////////////////////////
 //I think the one below is already in userRoutes.js
-router.route("/:userId/friends/:friendId").post().delete();
+//router.route("/:userId/friends/:friendId").post().delete();
 
 //finish the requirements in the statement above:
 // - `POST` to add a new friend to a user's friend list

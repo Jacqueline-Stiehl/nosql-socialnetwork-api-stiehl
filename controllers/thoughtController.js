@@ -84,7 +84,7 @@ module.exports = {
           .json({ message: "No thought found with that Id" });
       }
 
-      res.json(student);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
