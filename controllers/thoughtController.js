@@ -1,5 +1,5 @@
 //based off of postController.js in activity #21
-const { Thought, User, Reaction } = require("../models");
+const { Thought, User } = require("../models");
 
 module.exports = {
   async getThoughts(req, res) {
@@ -41,6 +41,13 @@ module.exports = {
         { $addToSet: { thoughts: thought._id } },
         { new: true }
       );
+
+      if (!user) {
+        return res.status(404).json({
+          message: "Thought created, but no user found with that Id",
+        });
+      }
+
       res.json(thought);
     } catch (err) {
       res.status(500).json(err);
