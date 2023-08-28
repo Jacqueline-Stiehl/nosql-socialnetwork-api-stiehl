@@ -1,6 +1,6 @@
 //based off of postController.js in activity #21
-//const { Thought, User } = require("../models");
-const Thought = require("../models/Thought");
+const { Thought, User } = require("../models");
+//const Thought = require("../models/Thought");
 const reactionSchema = require("../models/Reaction");
 
 module.exports = {
@@ -40,10 +40,11 @@ module.exports = {
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
+      console.log(req.body);
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
-        //{ $addToSet: { thoughts: thought._id } },
-        { $addToSet: { thoughts: req.body } },
+        { $push: { thoughts: thought._id } },
+        //{ $addToSet: { thoughts: req.body } },
         { new: true }
       );
 
@@ -70,6 +71,20 @@ module.exports = {
           .status(404)
           .json({ message: "No thought with that id exists." });
       }
+
+      const user = await User.findOneAndUpdate(
+        { thoughts: req.params.thoughtId },
+        { $pull: { thoughts: req.params.thoughtId } },
+        { new: true },
+        console.log(req.params.thoughtId)
+      );
+
+      if (!user) {
+        return res.status(404).json({
+          message: "Thought deleted, but no user found",
+        });
+      }
+
       res.json({ message: "Thought successfully deleted" });
     } catch (err) {
       console.log(err);
@@ -115,7 +130,7 @@ module.exports = {
       if (!thought) {
         res.status(404).json({ message: "No thought with that Id found" });
       }
-      res.json(course);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err);
     }
