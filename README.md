@@ -45,7 +45,7 @@ If you have additional questions, please contact me at salsajackie@yahoo.com.
 
 ## Link to the working version of the code
 
-https://github.com/Jacqueline-Stiehl/orm-ecommerce
+https://github.com/Jacqueline-Stiehl/nosql-socialnetwork-api-stiehl
 
 ## Link to walkthrough video
 
