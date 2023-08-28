@@ -1,5 +1,7 @@
 //based off of postController.js in activity #21
-const { Thought, User } = require("../models");
+//const { Thought, User } = require("../models");
+const Thought = require("../models/Thought");
+const reactionSchema = require("../models/Reaction");
 
 module.exports = {
   async getThoughts(req, res) {
@@ -7,6 +9,7 @@ module.exports = {
       const thoughts = await Thought.find();
       res.json(thoughts);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -15,7 +18,7 @@ module.exports = {
     try {
       const thought = await Thought.findOne({
         _id: req.params.thoughtId,
-      }).select("'-__v'");
+      }).select("-__v");
 
       if (!thought) {
         return res
@@ -25,7 +28,8 @@ module.exports = {
 
       res.json({
         thought,
-        reaction: await Reaction(req.params.thoughtId),
+        // thought,
+        // reaction: await Reaction(req.params.thoughtId),
       });
     } catch (err) {
       console.log(err);
@@ -38,7 +42,8 @@ module.exports = {
       const thought = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
-        { $addToSet: { thoughts: thought._id } },
+        //{ $addToSet: { thoughts: thought._id } },
+        { $addToSet: { thoughts: req.body } },
         { new: true }
       );
 
@@ -92,6 +97,7 @@ module.exports = {
       }
 
       res.json(thought);
+      // res.json(reaction);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -120,7 +126,7 @@ module.exports = {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        { $pull: { reaction: { reactionId: req.params.reactionId } } },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
         { runValidators: true, new: true }
       );
 

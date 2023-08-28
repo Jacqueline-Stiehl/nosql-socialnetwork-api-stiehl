@@ -23,7 +23,7 @@ router.route("/").get(getThoughts).post(createThought);
 //PUT update a thought by its _id --DONE
 //DELETE a thought by its _id --DONE
 router
-  .route("/:userId")
+  .route("/:thoughtId")
   .get(getSingleThought)
   .put(updateThought)
   .delete(deleteThought);
@@ -38,10 +38,9 @@ router
 
 /////////////////////////////////////////////////////////////
 
-router
-  .route("/:thoughtId/reactions")
-  .post(createReaction)
-  .delete(deleteReaction);
+router.route("/:thoughtId/reactions").post(createReaction);
+
+router.route("/:thoughtId/reactions/:reactionId").delete(deleteReaction);
 //finish the requirements in the statement above:
 //POST to create a reaction stored in a single thought's `reactions` array field --DONE?
 //DELETE to pull and remove a reaction by the reaction's `reactionId` value --DONE?

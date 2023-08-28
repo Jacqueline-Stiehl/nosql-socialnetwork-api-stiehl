@@ -13,9 +13,10 @@ module.exports = {
 
   async getSingleUser(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId })
-        .select("-__v")
-        .populate("thoughts", "friends");
+      const user = await User.findOne({ _id: req.params.userId }).select(
+        "-__v"
+      );
+      //.populate("thoughts", "friends");
       //from activity #23:
       //.select("-__v")
       //.populate("posts");
