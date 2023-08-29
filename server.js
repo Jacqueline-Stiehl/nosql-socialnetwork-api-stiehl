@@ -1,4 +1,3 @@
-//based off of server.js in activity #21
 const express = require("express");
 const db = require("./config/connection");
 const routes = require("./routes");

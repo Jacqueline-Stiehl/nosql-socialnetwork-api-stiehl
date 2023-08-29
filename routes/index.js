@@ -1,4 +1,3 @@
-//based off of activity #25
 const router = require("express").Router();
 const apiRoutes = require("./api");
 

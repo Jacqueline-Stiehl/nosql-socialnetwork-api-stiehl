@@ -1,4 +1,3 @@
-//based off of Course.js in mini project
 const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
@@ -19,14 +18,12 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Thought",
-        //   Array of `_id` values referencing the `Thought` model
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
-        //   - Array of `_id` values referencing the `User` model (self-reference)
       },
     ],
   },
@@ -38,10 +35,6 @@ const userSchema = new Schema(
     id: false,
   }
 );
-
-// Create a virtual called `friendCount` that
-// retrieves the length of the user's
-//`friends` array field on query.
 
 userSchema.virtual("friendCount").get(function () {
   return this.friends.length;

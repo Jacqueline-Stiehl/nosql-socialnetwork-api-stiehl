@@ -1,4 +1,3 @@
-//based off of userController.js in activity #25
 const User = require("../models/User");
 
 module.exports = {
@@ -16,10 +15,6 @@ module.exports = {
       const user = await User.findOne({ _id: req.params.userId }).select(
         "-__v"
       );
-      //.populate("thoughts", "friends");
-      //from activity #23:
-      //.select("-__v")
-      //.populate("posts");
 
       if (!user) {
         return res

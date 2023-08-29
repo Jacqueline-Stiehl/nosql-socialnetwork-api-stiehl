@@ -1,6 +1,4 @@
-//based off of postController.js in activity #21
 const { Thought, User } = require("../models");
-//const Thought = require("../models/Thought");
 const reactionSchema = require("../models/Reaction");
 
 module.exports = {
@@ -28,15 +26,13 @@ module.exports = {
 
       res.json({
         thought,
-        // thought,
-        // reaction: await Reaction(req.params.thoughtId),
       });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
-  //used videoControllers.js in activity #25 to help with one below:
+
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
@@ -44,7 +40,6 @@ module.exports = {
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
         { $push: { thoughts: thought._id } },
-        //{ $addToSet: { thoughts: req.body } },
         { new: true }
       );
 
@@ -92,8 +87,6 @@ module.exports = {
     }
   },
 
-  //add a reaction to a thought
-  //see recording on 8-21-23 at 2:27 for help with this
   async createReaction(req, res) {
     console.log("You are adding a reaction");
     console.log(req.body);
@@ -112,13 +105,11 @@ module.exports = {
       }
 
       res.json(thought);
-      // res.json(reaction);
     } catch (err) {
       res.status(500).json(err);
     }
   },
 
-  //update a thought
   async updateThought(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
@@ -136,7 +127,6 @@ module.exports = {
     }
   },
 
-  //delete reaction from a thought
   async deleteReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
